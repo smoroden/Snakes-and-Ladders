@@ -151,13 +151,21 @@
 }
 
 -(void)generateLaddersWithAmount:(NSInteger)amount {
-    NSInteger firstNumber;
+    NSInteger firstNumber = 0;
+    
+    BoardSquare *square1 = self.gameBoard[0];
+    BoardSquare *square2 = self.gameBoard[0];
 
     NSInteger secondNumber = 0;
     for (int i = 0; i < amount; i++) {
-        firstNumber = arc4random_uniform(_gameBoard.count - 2) + 1;
-        while (secondNumber == firstNumber) {
-            secondNumber = arc4random_uniform(_gameBoard.count - 2) + 1;
+        while(square1.property != BoardSqurePropertyTypeEmpty) {
+            firstNumber = arc4random_uniform(self.gameBoard.count - 2) + 1;
+            square1 = self.gameBoard[firstNumber];
+        }
+        
+        while (square2.property != BoardSqurePropertyTypeEmpty || secondNumber == firstNumber) {
+            secondNumber = arc4random_uniform(self.gameBoard.count - 2) + 1;
+            square2 = self.gameBoard[secondNumber];
         }
         
         NSInteger min = firstNumber < secondNumber ? firstNumber : secondNumber;
