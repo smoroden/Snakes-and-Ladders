@@ -19,7 +19,6 @@ typedef NS_ENUM(NSInteger, BoardSquarePropertyType) {
 @property (nonatomic, readonly) BoardSquarePropertyType type;
 @property (nonatomic, readonly) NSInteger otherNumber;
 
--(BOOL)isNotEmpty;
 
 -(instancetype)initWithType:(BoardSquarePropertyType)type andOtherSquareNumber:(NSInteger)number;
 

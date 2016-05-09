@@ -18,7 +18,4 @@
 }
 
 
--(BOOL)isNotEmpty {
-    return self.type == BoardSqurePropertyTypeEmpty ? YES : NO;
-}
 @end
