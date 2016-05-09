@@ -45,12 +45,13 @@
 -(void)startGameLoop {
     InputCollector *ic = [[InputCollector alloc] init];
     NSString *input;
-    NSInteger roll = 0;
+    
     BOOL playerWon = NO;
     while (!playerWon) {
         // Loop through each of the players for their turns
         for(int i = 0; i < self.players.count; i++) {
             Player* currentPlayer = self.players[i];
+            NSInteger roll = 0;
             // Get a valid roll
             while (roll < 1 || roll > 6) {
                 input = [ic inputForPrompt:[NSString stringWithFormat:@"Player %ld enter a valid dice roll", currentPlayer.number]];
@@ -63,6 +64,8 @@
             [self checkSquareForPlayer:currentPlayer];
             //Check if they won
             playerWon = [self checkIfPlayerWon:currentPlayer];
+            
+            
         }
         
         
@@ -118,13 +121,20 @@
 
 -(void)generateSnakesWithAmount:(NSInteger)amount {
     
-    NSInteger firstNumber;
-    
+    NSInteger firstNumber = 0;
     NSInteger secondNumber = 0;
+    BoardSquare *square1 = self.gameBoard[0];
+    BoardSquare *square2 = self.gameBoard[0];
+    
     for (int i = 0; i < amount; i++) {
-        firstNumber = arc4random_uniform(_gameBoard.count - 2) + 1;
-        while (secondNumber == firstNumber) {
-            secondNumber = arc4random_uniform(_gameBoard.count - 2) + 1;
+        while(square1.property != BoardSqurePropertyTypeEmpty) {
+            firstNumber = arc4random_uniform(self.gameBoard.count - 2) + 1;
+            square1 = self.gameBoard[firstNumber];
+        }
+        
+        while (square2.property != BoardSqurePropertyTypeEmpty || secondNumber == firstNumber) {
+            secondNumber = arc4random_uniform(self.gameBoard.count - 2) + 1;
+            square2 = self.gameBoard[secondNumber];
         }
         
         NSInteger min = firstNumber < secondNumber ? firstNumber : secondNumber;

@@ -62,11 +62,10 @@ int main(int argc, const char * argv[]) {
             players = [input integerValue];
         }
         
-        
-        
-        
-        
+        // Setup the board
         GameController *gc = [[GameController alloc] initWithSize:size andDifficulty:difficulty andAmountOfPlayers:players];
+        
+        // Start the game
         [gc startGameLoop];
     }
     return 0;
